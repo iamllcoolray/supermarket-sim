@@ -1,3 +1,22 @@
-body { font-family: Arial; padding: 20px; }
-#items { display: flex; flex-wrap: wrap; gap: 10px; }
-.item-button { padding: 10px; background-color: #eee; border: 1px solid #ccc; cursor: pointer; }
+body { 
+    font-family: Arial; 
+    padding: 20px; 
+}
+
+#items { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 10px; 
+}
+
+.item-button { 
+    padding: 10px; 
+    background-color: #eee; 
+    border: 1px solid #ccc; 
+    cursor: pointer; 
+}
+
+.item-button.selected {
+    background-color: lightgreen;
+    border: 2px solid green;
+}
