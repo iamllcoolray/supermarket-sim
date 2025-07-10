@@ -197,3 +197,4 @@ cython_debug/
 .venvsource
 .vscode
 .venvL
+*.db
