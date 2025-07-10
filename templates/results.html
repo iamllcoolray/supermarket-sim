@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Data Mining Results</title></head>
+<body>
+  <h2>Clustering Result:</h2>
+  {% for label, cluster in kmeans.items() %}
+    <h3>Cluster {{ label }}</h3><ul>{% for t in cluster %}<li>{{ t }}</li>{% endfor %}</ul>
+  {% endfor %}
+  <h2>Association Rules:</h2>
+  <ul>
+    {% for rule in rules %}
+      <li>{{ rule['antecedents'] }} => {{ rule['consequents'] }} (conf: {{ rule['confidence'] }}, lift: {{ rule['lift'] }})</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

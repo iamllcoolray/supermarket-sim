@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head><title>Supermarket Simulator</title><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+  <h1>Select Items</h1>
+  <div id="items">{% for item in items %}<button class="item-button" onclick="toggleItem('{{ item }}')">{{ item }}</button>{% endfor %}</div>
+  <button onclick="submitTransaction()">Submit Transaction</button>
+  <button onclick="window.location='/mine'">Run Data Mining</button>
+  <script src="/static/script.js"></script>
+</body>
+</html>

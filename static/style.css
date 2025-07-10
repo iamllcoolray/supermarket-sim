@@ -1,0 +1,3 @@
+body { font-family: Arial; padding: 20px; }
+#items { display: flex; flex-wrap: wrap; gap: 10px; }
+.item-button { padding: 10px; background-color: #eee; border: 1px solid #ccc; cursor: pointer; }
