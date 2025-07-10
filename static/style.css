@@ -16,6 +16,10 @@ body {
     cursor: pointer; 
 }
 
+.item-button:hover { 
+    background-color: #ddd; 
+}
+
 .item-button.selected {
     background-color: lightgreen;
     border: 2px solid green;
