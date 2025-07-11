@@ -36,7 +36,36 @@ def mine():
         return "Please create at least 5 transactions."
     kmeans_result = perform_kmeans(transactions)
     apriori_result = perform_apriori(transactions)
+    print("🚨 Mined transactions:", transactions)
     return render_template("results.html", kmeans=kmeans_result, rules=apriori_result)
+
+@app.route("/clear", methods=["POST"])
+def clear_data():
+    import os
+    print("🔥 CLEAR route hit")
+    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "database.db")
+    print(f"📂 Using DB at: {db_path}")
+    with sqlite3.connect(db_path) as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM transactions")
+        conn.commit()
+        remaining = cursor.execute("SELECT COUNT(*) FROM transactions").fetchone()[0]
+    print(f"🧹 Deleted all transactions. Remaining: {remaining}")
+    return jsonify({"success": True, "remaining": remaining})
+
+@app.route("/count")
+def count_transactions():
+    with sqlite3.connect(DB) as conn:
+        cursor = conn.cursor()
+        count = cursor.execute("SELECT COUNT(*) FROM transactions").fetchone()[0]
+    return jsonify({"count": count})
+
+@app.route("/debug")
+def debug():
+    with sqlite3.connect(DB) as conn:
+        rows = conn.execute("SELECT * FROM transactions").fetchall()
+    return f"Current transactions: {rows}"
+
 
 if __name__ == "__main__":
     init_db()

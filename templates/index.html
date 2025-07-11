@@ -1,19 +1,42 @@
 <!DOCTYPE html>
-<html>
-<head><title>Supermarket Simulator</title><link rel="stylesheet" href="/static/style.css"></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supermarket Simulator</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
 <body>
-  <h1>Select Items</h1>
-  
-  <div id="items">
-    {% for item in items %}
-      <button class="item-button" data-item="{{ item }}" onclick="toggleItem('{{ item }}')">{{ item }}</button>
-    {% endfor %}
+  <div class="container">
+    <h1 class="title">🛒 Supermarket Simulator</h1>
+
+    <div id="items" class="items-grid">
+      {% for item in items %}
+        <button
+          class="item-button"
+          data-item="{{ item }}"
+          onclick="toggleItem('{{ item }}')"
+        >
+          {{ item }}
+        </button>
+      {% endfor %}
+    </div>
+
+    <div class="button-group">
+      <button onclick="submitTransaction()" class="action-button submit">
+        ✅ Submit Transaction
+      </button>
+      <button onclick="window.location='/mine'" class="action-button mine">
+        🧠 Run Data Mining
+      </button>
+      <button onclick="clearMiningData()" class="action-button danger">
+      🗑️ Clear Mining Data
+      </button>
+    </div>
+    <p id="transaction-count" class="transaction-count">🧾 Stored Transactions: ...</p>
+
   </div>
-  
-  <button onclick="submitTransaction()">Submit Transaction</button>
-  
-  <button onclick="window.location='/mine'">Run Data Mining</button>
-  
+
   <script src="/static/script.js"></script>
 </body>
 </html>
