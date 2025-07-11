@@ -22,7 +22,38 @@ async function submitTransaction() {
     alert("Transaction submitted!");
     selectedItems.clear();
     document.querySelectorAll(".item-button").forEach(btn => btn.classList.remove("selected"));
+
+    updateTransactionCount();  // ✅ Add this line
   } else {
     alert("Error submitting transaction.");
   }
 }
+
+function clearMiningData() {
+  fetch("/clear", { method: "POST" })
+    .then(response => {
+      if (!response.ok) throw new Error("Clear failed");
+      return response.json();
+    })
+    .then(data => {
+      console.log("🧹 Clear response:", data);
+      alert("Transactions cleared!");
+
+      updateTransactionCount();  // ✅ Add this line
+    })
+    .catch(err => {
+      console.error("❌ Error clearing data:", err);
+      alert("Failed to clear data. Check console.");
+    });
+}
+
+function updateTransactionCount() {
+  fetch("/count")
+    .then(res => res.json())
+    .then(data => {
+      const countElement = document.getElementById("transaction-count");
+      countElement.textContent = `🧾 Stored Transactions: ${data.count}`;
+    });
+}
+
+document.addEventListener("DOMContentLoaded", updateTransactionCount);
