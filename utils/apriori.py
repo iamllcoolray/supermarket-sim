@@ -6,4 +6,5 @@ def perform_apriori(transactions):
     df = pd.DataFrame([{item: (item in t) for item in all_items} for t in transactions])
     frequent = apriori(df, min_support=0.2, use_colnames=True)
     rules = association_rules(frequent, metric="lift", min_threshold=1.0)
+    rules = rules.round({'lift' : 4, 'confidence' : 4})
     return rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']].to_dict('records')
