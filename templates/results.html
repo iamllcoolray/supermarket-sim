@@ -7,10 +7,27 @@
     <h3>Cluster {{ label }}</h3><ul>{% for t in cluster %}<li>{{ t }}</li>{% endfor %}</ul>
   {% endfor %}
   <h2>Association Rules:</h2>
-  <ul>
-    {% for rule in rules %}
-      <li>{{ rule['antecedents'] }} => {{ rule['consequents'] }} (conf: {{ rule['confidence'] }}, lift: {{ rule['lift'] }})</li>
+  <h3> Confidence Levels: High &gt;= 0.9, Medium &gt;= 0.7, Low &lt; 0.7</h3>
+  <h3> Lift Levels: Strong &gt;= 2, Moderate &gt;= 1. Rules with a lift level below 1 are filtered out.</h3>
+  {% set conf_levels = ['High', 'Medium', 'Low'] %}
+  {% set lift_levels = ['Strong', 'Moderate', 'Weak'] %}
+
+  {% for conf_cat in conf_levels %}
+    {% for lift_cat in lift_levels %}
+      {% set filtered_rules = rules | selectattr('conf_category', 'equalto', conf_cat) | selectattr('lift_category', 'equalto', lift_cat) | list %}
+      {% if filtered_rules %}
+        <h3>Confidence: {{ conf_cat }}, Lift: {{ lift_cat }}</h3>
+        <ul>
+          {% for rule in filtered_rules %}
+            <li>
+              {{ rule['antecedents'] | join(', ') }} => {{ rule['consequents'] | join(', ') }}
+              (conf: {{ "%.2f"|format(rule['confidence']) }},
+              lift: {{ "%.2f"|format(rule['lift']) }})
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     {% endfor %}
-  </ul>
+  {% endfor %}
 </body>
 </html>
